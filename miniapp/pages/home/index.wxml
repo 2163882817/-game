@@ -1,0 +1,45 @@
+<view class="page home">
+  <app-header title="高性价比人生" home />
+  <view class="subtitle">掷出下一步，经营自己的生活</view>
+  <view class="title home-title">把日子，玩出新可能</view>
+  <life-board position="{{game ? game.position : 2}}" preview />
+  <view class="card">
+    <view class="card-title">{{game && game.phase !== 'ENDING' ? '继续这局人生' :'每一次选择，都有新可能'}}</view>
+    <view class="body" wx:if="{{game && game.phase !== 'ENDING'}}">
+      {{stageName}} · 第 {{game.round}} / 24 回合
+      <view>现金 ¥{{cash}} · 已拥有 {{game.assets.length}} 处资产</view>
+    </view>
+    <view class="body" wx:else>
+      24 回合，四个生活阶段
+      <view>没有标准答案，走出自己的路线。</view>
+    </view>
+  </view>
+  <view wx:if="{{damaged}}" class="note warning">
+    未找到有效存档。可以开始新局；历史记录与收藏仍独立保留。
+  </view>
+  <view class="footer">
+    <button wx:if="{{game && game.phase !== 'ENDING'}}" class="primary" bindtap="continueGame">
+      继续游戏
+    </button>
+    <button wx:else class="primary" bindtap="start">开始人生</button>
+    <view class="links">
+      <button class="link" bindtap="start">新开一局</button>
+      <button class="link" data-page="history" bindtap="nav">人生档案</button>
+      <button class="link" data-page="guide" bindtap="nav">生活指南</button>
+    </view>
+    <view class="note">前端体验版 · 免费无广告 · 仅保存在当前设备</view>
+  </view>
+  <view wx:if="{{restart || recover}}" class="modal-mask">
+    <view class="modal">
+      <view class="card-title">{{restart?'重新开启一局？':'欢迎回到这段人生'}}</view>
+      <view class="body">
+        {{stageName}} · 第 {{game.round}} / 24 回合
+        <view>{{restart?'当前未完成进度将被替换，历史、成就和收藏会保留。':'将从最近成功保存的位置继续。已掷出的骰子和已确认的选择保持原样。'}}</view>
+      </view>
+      <button class="primary" bindtap="{{restart?'confirmRestart':'confirmResume'}}">
+        {{restart?'确认，重新开始':'恢复进度，继续人生'}}
+      </button>
+      <button class="link" bindtap="cancel">{{restart?'保留当前进度':'暂不继续'}}</button>
+    </view>
+  </view>
+</view>

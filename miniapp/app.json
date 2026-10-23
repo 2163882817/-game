@@ -1,0 +1,33 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/new-game/index",
+    "pages/board/index",
+    "pages/event/index",
+    "pages/result/index",
+    "pages/assets/index",
+    "pages/recovery/index",
+    "pages/guide/index",
+    "pages/guide-detail/index",
+    "pages/stage-report/index",
+    "pages/ending/index",
+    "pages/history/index",
+    "pages/rules/index",
+    "pages/save-error/index",
+    "pages/feedback/index"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "backgroundColor": "#eff6ee",
+    "backgroundTextStyle": "dark",
+    "navigationBarTextStyle": "black"
+  },
+  "usingComponents": {
+    "app-header": "/components/app-header/index",
+    "resource-bar": "/components/resource-bar/index",
+    "life-board": "/components/life-board/index"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

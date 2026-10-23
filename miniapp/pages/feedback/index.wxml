@@ -1,0 +1,27 @@
+<view class="page">
+  <app-header title="问题反馈" />
+  <view class="subtitle">帮这段人生，走得更顺一点</view>
+  <view class="title">哪里需要改进？</view>
+  <textarea
+    class="textarea"
+    placeholder="描述遇到的问题，不必填写真实个人信息。"
+    value="{{text}}"
+    maxlength="1000"
+    bindinput="input"
+    aria-label="反馈内容"
+  />
+  <view class="note">
+    内容版本 {{version}} · 事件 {{eventId}} · 第 {{round}} 回合
+    <view wx:if="{{knowledgeId}}">知识条目 {{knowledgeId}}</view>
+    <view>上下文会随反馈一起保存。</view>
+  </view>
+  <view class="footer">
+    <button class="primary" bindtap="save" disabled="{{!text || saved}}">
+      {{saved?'已保存在本机':'保存反馈到本机'}}
+    </button>
+    <view class="links">
+      <button class="link" bindtap="copy">复制反馈，手动发送</button>
+    </view>
+    <view class="note">此版本未接入反馈服务，保存后不会自动发送给开发者。</view>
+  </view>
+</view>

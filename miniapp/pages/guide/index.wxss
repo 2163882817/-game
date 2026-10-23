@@ -1,0 +1,9 @@
+.input {
+  margin-top: 38rpx;
+}
+.filter {
+  margin-bottom: 32rpx;
+}
+.placeholder {
+  color: #547267;
+}

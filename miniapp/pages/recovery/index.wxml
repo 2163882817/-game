@@ -1,0 +1,42 @@
+<view class="page">
+  <app-header title="给生活留一条退路" />
+  <view class="subtitle">资源不足，也可以继续</view>
+  <view class="title">先渡过眼前这一关</view>
+  <resource-bar resources="{{resources}}" />
+  <view class="card mint">
+    <view class="card-title">这笔费用，还差一点</view>
+    <view class="body">
+      应付 ¥{{game.debt}} · 现有 ¥{{cash}}
+      <view>差额 ¥{{game.debt>resources.cash?game.debt-resources.cash:0}}</view>
+      <view>不会因为一次困难，直接结束人生。</view>
+    </view>
+  </view>
+  <view class="card">
+    <view class="card-title">你可以这样安排</view>
+    <view class="body">
+      出售资产，收回一部分现金；
+      <view>或领取本局一次的免费应急援助。</view>
+      <view>仍不足的部分可申请减免，无后续债务。</view>
+    </view>
+  </view>
+  <view class="footer">
+    <button wx:if="{{resources.cash>=game.debt}}" class="primary" bindtap="pay">
+      现金已足够，结清账单
+    </button>
+    <button wx:else class="primary" disabled="{{game.aidUsed}}" bindtap="aid">
+      {{game.aidUsed?'本局援助已使用':'领取应急援助 · +¥1,000'}}
+    </button>
+    <view class="links">
+      <button
+        wx:if="{{assets.length}}"
+        class="link"
+        data-page="assets"
+        bindtap="nav"
+      >
+        出售资产
+      </button>
+      <button class="link" bindtap="waive">支付现有现金，减免剩余差额</button>
+    </view>
+    <view class="note">免费、无广告，不增加债务，不影响继续游戏。</view>
+  </view>
+</view>

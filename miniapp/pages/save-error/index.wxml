@@ -1,0 +1,32 @@
+<view class="page">
+  <app-header title="保存遇到一点问题" home />
+  <view class="subtitle">第 {{round}} 回合 · 等待保存</view>
+  <view class="title">这一刻，先替你留着</view>
+  <view class="card mint">
+    <view class="card-title">结果还在本次运行的内存中</view>
+    <view class="body">
+      暂时无法写入设备存储。
+      <view>为避免重复结算，后续操作已暂停。</view>
+      <view>重试会保存同一份结果，不会再扣一次钱。</view>
+    </view>
+  </view>
+  <view class="card">
+    <view class="card-title">可以尝试</view>
+    <view class="body">
+      检查设备可用空间，再点击重试。
+      <view>请先不要清理本小程序的数据。</view>
+      <view>若现在退出，只能恢复最近成功保存的进度。</view>
+    </view>
+  </view>
+  <view class="note warning">{{error}}</view>
+  <view class="footer">
+    <button
+      class="primary"
+      bindtap="retry"
+      disabled="{{busy}}"
+      loading="{{busy}}"
+    >
+      重试保存，继续人生
+    </button>
+  </view>
+</view>

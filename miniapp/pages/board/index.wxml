@@ -1,0 +1,38 @@
+<view class="page">
+  <app-header title="{{stageName}}" />
+  <view class="row">
+    <view class="subtitle">
+      第 {{game.round}} / 24 回合 · 阶段 {{game.stage}} / 4
+    </view>
+    <button class="link" data-page="rules" bindtap="nav">规则</button>
+  </view>
+  <resource-bar resources="{{resources}}" />
+  <life-board
+    position="{{displayPosition}}"
+    moving="{{moving}}"
+    dice="{{dice}}"
+    bind:tile="tile"
+  />
+  <view class="card">
+    <view class="card-title">{{moving?'掷出了 '+dice+' 点':'你的回合'}}</view>
+    <view class="body">
+      {{moving?'正在沿街区前进，结果已保存。':'当前位置：'+tile.name+'格'+tile.number}}
+      <view>
+        下一次经过起点：工资 +¥2,000
+        <text wx:if="{{income}}">· 收益 +¥{{income}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="footer">
+    <button wx:if="{{moving}}" class="primary" bindtap="land">
+      跳过动画，查看落格
+    </button>
+    <button wx:else class="primary" bindtap="roll">掷骰子 · 开始本回合</button>
+    <view class="links" wx:if="{{!moving}}">
+      <button class="link" data-page="assets" bindtap="nav">
+        我的资产 · {{game.assets.length}} 处
+      </button>
+      <button class="link" data-page="guide" bindtap="nav">生活指南</button>
+    </view>
+  </view>
+</view>

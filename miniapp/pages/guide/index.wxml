@@ -1,0 +1,53 @@
+<view class="page">
+  <app-header title="生活指南" />
+  <view class="subtitle">理解取舍，把经验带回生活</view>
+  <input
+    class="input"
+    value="{{query}}"
+    placeholder="搜索租房、合同、通勤…"
+    placeholder-class="placeholder"
+    bindinput="input"
+    aria-label="搜索生活指南"
+  />
+  <view class="pills">
+    <button
+      wx:for="{{topics}}"
+      wx:key="*this"
+      class="pill {{topic===item?'active':''}}"
+      data-topic="{{item}}"
+      bindtap="topic"
+    >
+      {{item}}
+    </button>
+  </view>
+  <view class="row filter">
+    <picker
+      range="{{evidenceOptions}}"
+      value="{{evidence}}"
+      bindchange="evidence"
+    >
+      <view class="link small">{{evidenceOptions[evidence]}}⌄</view>
+    </picker>
+    <button class="link small" bindtap="saved">{{onlySaved?'✓ 仅看收藏':'查看已收藏'}}</button>
+  </view>
+  <view class="note">前端演示 · {{items.length}} 条结果 · 来源与证据待审核</view>
+  <button
+    wx:for="{{items}}"
+    wx:key="id"
+    class="card list-button {{item.saved?'mint':''}}"
+    data-id="{{item.id}}"
+    bindtap="detail"
+  >
+    <view class="card-title">{{item.title}}</view>
+    <view class="body">
+      主题：{{item.topic}} · {{item.saved?'已收藏':'未收藏'}}
+      <view>{{item.summary}}</view>
+    </view>
+  </button>
+  <view class="empty" wx:if="{{!items.length}}">
+    <view class="card-title">还没有匹配的条目</view>
+    <view class="body">试试其他关键词，或调整筛选条件。</view>
+    <button class="link" bindtap="clear">清除筛选</button>
+  </view>
+  <view class="note">收藏只表示感兴趣，不代表已经在现实中执行。</view>
+</view>

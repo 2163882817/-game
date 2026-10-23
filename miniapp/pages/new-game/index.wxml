@@ -1,0 +1,42 @@
+<view class="page">
+  <app-header title="开始人生" />
+  <view class="subtitle">统一起点，每次走出不同路线</view>
+  <view class="title">初入社会</view>
+  <view class="card mint">
+    <view class="card-title">你的初始行囊</view>
+    <view class="body">
+      现金 ¥6,000 · 精力 80
+      <view>健康 80 · 保障 50</view>
+      <view>使用虚构角色，无需填写真实个人资料。</view>
+    </view>
+  </view>
+  <view class="card">
+    <view class="card-title">三步上手</view>
+    <view class="body">
+      01 掷骰前进，落格遇见生活事件。
+      <view>02 留足现金，购买与升级合适资产。</view>
+      <view>03 每 6 回合回顾，24 回合完成这局。</view>
+    </view>
+  </view>
+  <view class="card">
+    <view class="card-title">你决定怎样过</view>
+    <view class="body">
+      没有排行榜和唯一标准答案。
+      <view>游戏数值只服务于剧情与经营规则。</view>
+    </view>
+  </view>
+  <view class="note">当前为演示内容包，剧情与知识尚待正式审核。</view>
+  <view class="bottom-space"></view>
+  <view class="dock">
+    <view class="dock-inner">
+      <button
+        class="primary"
+        disabled="{{busy}}"
+        loading="{{busy}}"
+        bindtap="start"
+      >
+        带着 ¥6,000 出发
+      </button>
+    </view>
+  </view>
+</view>

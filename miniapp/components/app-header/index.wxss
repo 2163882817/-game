@@ -1,0 +1,57 @@
+:host {
+  display: block;
+}
+view,
+text,
+button {
+  box-sizing: border-box;
+}
+.header {
+  background: #eff6ee;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 26rpx;
+  box-sizing: content-box;
+  padding-bottom: 12rpx;
+}
+.nav .back {
+  margin: 0;
+  flex-shrink: 0;
+  width: 38rpx;
+  min-width: 38rpx;
+  height: 70rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+}
+.back::after {
+  border: 0;
+}
+.arrow {
+  width: 26rpx;
+  height: 2px;
+  background: #173f36;
+  position: relative;
+}
+.arrow::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -7rpx;
+  width: 14rpx;
+  height: 14rpx;
+  border-left: 2px solid #173f36;
+  border-bottom: 2px solid #173f36;
+  transform: rotate(45deg);
+}
+.nav-title {
+  min-width: 0;
+  overflow-wrap: break-word;
+  font-size: 34rpx;
+  font-weight: 750;
+  line-height: 1.4;
+}

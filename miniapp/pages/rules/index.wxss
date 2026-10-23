@@ -1,0 +1,14 @@
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12rpx;
+}
+.rule-tile {
+  background: white;
+  padding: 18rpx 10rpx;
+  border-radius: 18rpx;
+  text-align: center;
+}
+.rule-tile text {
+  display: block;
+}

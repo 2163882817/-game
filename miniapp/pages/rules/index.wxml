@@ -1,0 +1,124 @@
+<view class="page">
+  <app-header title="玩法规则" />
+  <view class="subtitle">先了解规则，再走出自己的路线</view>
+  <view class="pills">
+    <button
+      wx:for="{{tabs}}"
+      wx:key="index"
+      data-id="{{index}}"
+      class="pill {{tab===index?'active':''}}"
+      bindtap="tab"
+    >
+      {{item}}
+    </button>
+  </view>
+  <block wx:if="{{tab===0}}">
+    <view class="title">掷出下一步，经营自己的生活</view>
+    <view class="card mint">
+      <view class="card-title">24 回合，四个阶段</view>
+      <view class="body">
+        每回合掷 1 次骰子，顺时针走 1—6 格。
+        <view>落格后处理事件、资产或生活变化。</view>
+        <view>每 6 回合，先完成落格，再经历阶段主线。</view>
+      </view>
+    </view>
+    <view class="card">
+      <view class="card-title">选择没有唯一答案</view>
+      <view class="body">
+        确认前可以修改选择；已知成本提前展示。
+        <view>提交后显示结果、变化与原因。</view>
+        <view>低精力或健康不会让一次失误结束整局。</view>
+      </view>
+    </view>
+    <view class="card">
+      <view class="card-title">把经验带回生活</view>
+      <view class="body">
+        结算后可以查看知识解释、适用限制与出处。
+        <view>没有统一人生总分，也没有排行榜。</view>
+      </view>
+    </view>
+  </block>
+  <block wx:elif="{{tab===1}}">
+    <view class="section-title">16 格生活街区</view>
+    <view class="rules-grid">
+      <view wx:for="{{board}}" wx:key="id" class="rule-tile">
+        <text class="small">{{item.number}}</text>
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+    <view class="card mint">
+      <view class="card-title">四段生活</view>
+      <view class="body" wx:for="{{stages}}" wx:key="index">
+        {{index+1}} · {{item}} · 第
+        {{index*6+1}}—{{(index+1)*6}} 回合
+      </view>
+    </view>
+    <view class="note">
+      阶段主线不增加掷骰次数，实际剧情展示可能超过 24 次。
+    </view>
+  </block>
+  <block wx:elif="{{tab===2}}">
+    <view class="card mint">
+      <view class="card-title">初始资源</view>
+      <view class="body">
+        现金 ¥6,000 · 精力 80
+        <view>健康 80 · 保障 50</view>
+        <view>现金不为负，其他状态范围 0—100。</view>
+      </view>
+    </view>
+    <view class="section-title">经过起点</view>
+    <view class="body">
+      本回合经过或落在起点，仅发放一次：工资 ¥2,000 + 已持有资产收益。
+    </view>
+    <view class="section-title">资产经营</view>
+    <view class="body">
+      买入 ¥3,000；Lv.1 收益 ¥400 / 圈。
+      <view>升级 Lv.2 费用 ¥1,200，收益 ¥650 / 圈。</view>
+      <view>升级 Lv.3 费用 ¥1,800，收益 ¥950 / 圈。</view>
+      <view>每回合每处最多升级一次，结算后可操作。</view>
+    </view>
+    <view class="section-title">固定落格变化</view>
+    <view class="body">
+      工作：现金 +600 · 精力 −8
+      <view>公园：精力 +8；休息：健康 +8</view>
+      <view>补给：现金 −200 · 精力 +15</view>
+      <view>缴费：现金 −300</view>
+      <view>保障：可选现金 −200 · 保障 +10</view>
+    </view>
+    <view class="section-title">困境也有继续的路</view>
+    <view class="body">
+      费用不足时，可出售资产、申请一次 ¥1,000
+      免费援助，或减免无法支付的差额。精力或健康 ≤20，下回合先恢复对应状态 +20。
+    </view>
+    <view class="note">健康与保障仅为游戏数值，不对应寿命或个人发病概率。</view>
+  </block>
+  <block wx:else>
+    <view class="card">
+      <view class="card-title">进度只保存在当前设备</view>
+      <view class="body">
+        每次关键操作保存整份快照。
+        <view>骰值保存后才播放动画，退出不会重新抽取。</view>
+        <view>保存失败时暂停操作，重试后继续。</view>
+        <view>重开仅替换当前局，历史与收藏保留。</view>
+      </view>
+    </view>
+    <view class="card mint">
+      <view class="card-title">当前交付：前端体验版</view>
+      <view class="body">
+        8 个原创情境、4 个阶段主线、8 条示范指南。
+        <view>演示条目尚未逐条核对原书，证据等级待审核。</view>
+        <view>正式内容目标为 60 事件、40 知识条目。</view>
+      </view>
+    </view>
+    <view class="section-title">尚待确认的演示口径</view>
+    <view class="body">
+      24 次掷骰，阶段主线额外展示。
+      <view>重复落在已持有资产时不另扣款。</view>
+      <view>高级资产暂用 ¥1,500 残值，升级支出不回收。</view>
+      <view>恢复路径由玩家选择，允许减免差额。</view>
+    </view>
+    <view class="note">
+      这些口径只服务当前前端体验，未视为正式上线产品规则。
+    </view>
+  </block>
+</view>

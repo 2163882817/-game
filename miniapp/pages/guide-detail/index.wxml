@@ -1,0 +1,43 @@
+<view class="page">
+  <app-header title="指南条目" />
+  <block wx:if="{{item}}">
+    <view class="subtitle">{{item.topic}} · 证据等级：{{item.evidence}}</view>
+    <view class="title">{{item.title}}</view>
+    <view class="card mint">
+      <view class="card-title">说人话</view>
+      <view class="body">{{item.summary}}</view>
+    </view>
+    <view class="section-title">适用人群与限制</view>
+    <view class="body">
+      {{item.audience}}
+      <view>{{item.limitations}}</view>
+    </view>
+    <view class="card">
+      <view class="card-title">证据与争议</view>
+      <view class="body">
+        证据等级：{{item.evidence}}
+        <view>{{item.dispute}}</view>
+      </view>
+    </view>
+    <view class="section-title">来源与署名</view>
+    <view class="body">
+      {{item.sourceTitle}}
+      <view>来源版本：{{item.sourceCommit}}</view>
+      <view>{{item.attribution}}</view>
+      <view>许可：{{item.license}}</view>
+      <view>{{item.adaptationNotice}}</view>
+    </view>
+    <view class="links">
+      <button class="link" bindtap="copy">复制出处链接</button>
+      <button class="link" bindtap="favorite">{{saved?'取消收藏':'收藏这条指南'}}</button>
+    </view>
+    <view class="links">
+      <button class="link" bindtap="feedback">反馈这条内容</button>
+    </view>
+    <view class="note">剧情和数值为游戏改编，不构成个体化建议。</view>
+  </block>
+  <view wx:else class="empty">
+    <view class="card-title">没有找到这个条目</view>
+    <view class="body">请返回生活指南，选择其他条目。</view>
+  </view>
+</view>

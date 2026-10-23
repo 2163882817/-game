@@ -1,0 +1,9 @@
+.story {
+  margin: 16rpx 10rpx 52rpx;
+}
+.asset-art {
+  margin-top: 42rpx;
+}
+.asset-art .card-title {
+  margin-top: 48rpx;
+}

@@ -1,0 +1,122 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+view,
+text,
+button {
+  box-sizing: border-box;
+}
+.resources {
+  background: white;
+  border-radius: 36rpx;
+  padding: 20rpx;
+  display: flex;
+  gap: 20rpx;
+}
+.resource {
+  flex: 1;
+  min-width: 0;
+}
+.cash {
+  flex: 1.08;
+}
+.label {
+  display: flex;
+  align-items: center;
+  gap: 9rpx;
+  font-size: 24rpx;
+  color: #4f7064;
+  white-space: nowrap;
+}
+.value {
+  font-size: 35rpx;
+  color: #173f36;
+  font-weight: 700;
+  line-height: 1.6;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.value text {
+  font-size: 20rpx;
+  font-weight: 400;
+  color: #4f7064;
+  margin-left: 3rpx;
+}
+.track {
+  height: 8rpx;
+  border-radius: 8rpx;
+  background: #e3ecdf;
+  margin-top: 15rpx;
+  overflow: hidden;
+}
+.fill {
+  height: 100%;
+  background: #2e806b;
+  border-radius: 8rpx;
+}
+.health {
+  background: #cb6868;
+}
+.protection {
+  background: #4e8995;
+}
+.resources .explain {
+  width: auto;
+  margin: 0;
+  border-radius: 0;
+  font-size: 22rpx;
+  line-height: 1.4;
+  text-decoration: underline;
+  text-underline-offset: 4rpx;
+  padding: 8rpx 0 0;
+  background: none;
+  color: #173f36;
+  text-align: left;
+}
+.explain::after {
+  border: 0;
+}
+.coin {
+  width: 22rpx;
+  height: 22rpx;
+  border: 5rpx solid #f7d573;
+  background: #ac8135;
+  border-radius: 50%;
+}
+.bolt {
+  width: 22rpx;
+  height: 27rpx;
+  background: #2e806b;
+  clip-path: polygon(60% 0, 5% 58%, 43% 58%, 25% 100%, 100% 37%, 58% 37%);
+}
+.heart {
+  width: 22rpx;
+  height: 22rpx;
+  background: #cb6868;
+  transform: rotate(-45deg);
+  border-radius: 3rpx;
+  position: relative;
+  margin-right: 3rpx;
+}
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 22rpx;
+  height: 22rpx;
+  background: #cb6868;
+  border-radius: 50%;
+}
+.heart::before {
+  top: -10rpx;
+}
+.heart::after {
+  left: 10rpx;
+}
+.shield {
+  width: 23rpx;
+  height: 27rpx;
+  background: #4e8995;
+  clip-path: polygon(50% 0, 100% 20%, 90% 65%, 50% 100%, 10% 65%, 0 20%);
+}

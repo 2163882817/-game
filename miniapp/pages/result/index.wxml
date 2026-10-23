@@ -1,0 +1,47 @@
+<view class="page">
+  <app-header title="回合结算" />
+  <view class="subtitle">第 {{game.round}} 回合 · 选择已保存</view>
+  <view class="title">{{result.title}}</view>
+  <view class="card mint">
+    <view class="card-title">生活，向前了一小步</view>
+    <view class="body">{{result.text}}</view>
+  </view>
+  <view class="card">
+    <view class="card-title">这次变化</view>
+    <view wx:for="{{changes}}" wx:key="index" class="delta-row">
+      <text>{{item.label}} {{item.before}} → {{item.after}}</text>
+      <text class="delta">{{item.deltaText}}{{item.capped?'（达到边界）':''}}</text>
+    </view>
+    <view wx:if="{{!changes.length}}" class="body">
+      本次没有资源变化，现金留在了手边。
+    </view>
+    <view wx:for="{{changes}}" wx:key="index" class="small body">
+      {{item.reason}}
+    </view>
+  </view>
+  <view class="card">
+    <button class="card-title list-button" bindtap="toggle">
+      为什么会这样？ {{expanded?'收起':'展开'}}
+    </button>
+    <view class="body">{{knowledge.summary}}</view>
+    <block wx:if="{{expanded}}">
+      <view class="divider"></view>
+      <view class="body small">
+        {{knowledge.limitations}}
+        <view>证据等级：{{knowledge.evidence}}</view>
+        <view>剧情和数值为游戏改编。</view>
+      </view>
+      <button class="link" bindtap="guide">查看知识条目与出处</button>
+    </block>
+  </view>
+  <view class="links">
+    <button class="link" data-page="assets" bindtap="nav">管理资产</button>
+    <button class="link" data-page="feedback" bindtap="nav">反馈问题</button>
+  </view>
+  <view class="bottom-space"></view>
+  <view class="dock">
+    <view class="dock-inner">
+      <button class="primary" bindtap="next">{{game.round%6===0?(game.isMain?'查看阶段回顾':'继续 ·阶段主线'):'返回棋盘 · 第 '+(game.round+1)+' 回合'}}</button>
+    </view>
+  </view>
+</view>

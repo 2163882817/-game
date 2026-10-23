@@ -1,0 +1,9 @@
+.home-title {
+  margin: 30rpx 0 66rpx;
+}
+.home .card {
+  margin-top: 48rpx;
+}
+.home .footer {
+  padding-top: 16rpx;
+}

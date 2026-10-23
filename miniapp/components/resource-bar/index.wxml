@@ -1,0 +1,51 @@
+<view class="resources">
+  <view class="resource cash">
+    <view class="label">
+      <view class="coin"></view>
+      金钱
+    </view>
+    <view class="value">{{cash}}</view>
+    <button class="explain" bindtap="rules" aria-label="查看数值说明">
+      数值说明 ⓘ
+    </button>
+  </view>
+  <view class="resource">
+    <view class="label">
+      <view class="bolt"></view>
+      精力
+    </view>
+    <view class="value">
+      {{resources.energy}}
+      <text>/100</text>
+    </view>
+    <view class="track">
+      <view class="fill" style="width: {{resources.energy}}%"></view>
+    </view>
+  </view>
+  <view class="resource">
+    <view class="label">
+      <view class="heart"></view>
+      健康
+    </view>
+    <view class="value">
+      {{resources.health}}
+      <text>/100</text>
+    </view>
+    <view class="track">
+      <view class="fill health" style="width: {{resources.health}}%"></view>
+    </view>
+  </view>
+  <view class="resource">
+    <view class="label">
+      <view class="shield"></view>
+      保障
+    </view>
+    <view class="value">
+      {{resources.protection}}
+      <text>/100</text>
+    </view>
+    <view class="track">
+      <view class="fill protection" style="width: {{resources.protection}}%"></view>
+    </view>
+  </view>
+</view>

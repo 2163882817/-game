@@ -1,0 +1,54 @@
+<view class="page">
+  <app-header title="我的资产" />
+  <view class="subtitle">
+    现金 ¥{{cash}} · 起点固定收益 ¥{{income}} / 圈
+  </view>
+  <view class="empty" wx:if="{{!assets.length}}">
+    <view class="house"></view>
+    <view class="card-title">底气，可以慢慢积累</view>
+    <view class="body">
+      你还没有持有资产。
+      <view>走到小公寓、便利店、出租屋或书店，</view>
+      <view>可以选择花 ¥3,000 购入。</view>
+    </view>
+  </view>
+  <block wx:for="{{assets}}" wx:key="tileId">
+    <view class="card mint">
+      <view class="card-title">{{item.name}} Lv.{{item.level}}</view>
+      <view class="body">
+        购入价 ¥3,000 · 当前残值 ¥{{item.salvage}}
+        <view>当前每圈收益 ¥{{item.income}}</view>
+      </view>
+    </view>
+    <view class="section-title">{{item.level<3?'升级为 Lv.'+(item.level+1):'已达到最高等级'}}</view>
+    <view class="body">
+      {{item.level<3?'升级费用 ¥'+item.cost:'每次经过起点，固定收益¥950'}}
+      <view>升级不会立即发放收益，每回合每处最多升级 1 次。</view>
+    </view>
+    <view class="footer">
+      <button
+        wx:if="{{item.level<3}}"
+        class="primary"
+        disabled="{{!item.canUpgrade}}"
+        data-id="{{item.tileId}}"
+        bindtap="upgrade"
+      >
+        {{item.canUpgrade?'升级资产 · ¥'+item.cost:'暂不可升级 ·结算后且余额充足时可用'}}
+      </button>
+      <button
+        class="secondary sell"
+        disabled="{{game.phase!=='READY' && game.phase!=='RESULT' && game.phase!=='RECOVERY'}}"
+        data-id="{{item.tileId}}"
+        bindtap="sell"
+      >
+        出售 · 回收 ¥{{item.salvage}}
+      </button>
+    </view>
+  </block>
+  <view class="note">
+    演示口径：Lv.2/3 暂按残值 ¥1,500 展示，正式数值待产品确认。
+  </view>
+  <view class="links">
+    <button class="link" bindtap="back">返回当前进度</button>
+  </view>
+</view>

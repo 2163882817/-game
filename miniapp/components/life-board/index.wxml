@@ -1,0 +1,29 @@
+<view class="board">
+  <button
+    wx:for="{{tiles}}"
+    wx:key="id"
+    style="top: {{(item.row - 1) * 20.3}}%; left: {{(item.col - 1) * 20.3}}%"
+    class="tile {{item.type}} {{position===item.id?'current':''}}"
+    data-id="{{item.id}}"
+    bindtap="tap"
+    aria-label="{{item.number}} {{item.name}} {{position===item.id?'当前位置':''}}"
+  >
+    <text class="number">{{item.number}}</text>
+    <text class="name">{{item.name}}</text>
+    <view wx:if="{{item.type==='asset'}}" class="asset-line"></view>
+    <text wx:if="{{position===item.id}}" class="you">你</text>
+  </button>
+  <view class="center">
+    <text class="center-title">生活街区</text>
+    <text class="direction">{{moving?'正在前进…':'顺时针前进 →'}}</text>
+    <view
+      wx:if="{{moving}}"
+      class="dice"
+      aria-label="骰子{{dice}}点"
+    >
+      {{dice}}
+    </view>
+    <view wx:else class="house"></view>
+    <text class="legend">资产 4 格 · 机会 3 格</text>
+  </view>
+</view>

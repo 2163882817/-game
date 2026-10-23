@@ -1,0 +1,82 @@
+<view class="page">
+  <app-header title="{{game.phase==='ASSET_OFFER'?'走到了'+tile.name:game.phase==='PROTECTION'?'给生活加一点保障':game.isMain?'阶段主线':'机会 · 生活的选择'}}" />
+  <view class="subtitle">第 {{game.round}} 回合 · {{event.topic || tile.name}}</view>
+  <resource-bar resources="{{resources}}" />
+  <block wx:if="{{game.phase==='CHOOSING'}}">
+    <view class="section-title">{{event.title}}</view>
+    <view class="body story">{{event.context}}</view>
+    <button
+      wx:for="{{options}}"
+      wx:key="id"
+      class="option {{selected===item.id?'selected':''}}"
+      data-id="{{item.id}}"
+      bindtap="select"
+      disabled="{{item.disabled}}"
+    >
+      <view class="option-title">
+        {{item.letter}} {{item.label}}
+        <text wx:if="{{selected===item.id}}" class="selected-mark">✓</text>
+      </view>
+      <view class="body">{{item.cost}}</view>
+      <view wx:if="{{item.disabled}}" class="small warning">
+        当前资源不足，请选择其他方案
+      </view>
+    </button>
+    <view class="bottom-space"></view>
+    <view class="dock">
+      <view class="dock-inner">
+        <button
+          class="primary"
+          bindtap="confirm"
+          disabled="{{!selected || busy}}"
+          loading="{{busy}}"
+        >
+          {{selected?'确认这个选择':'先选择你的方案'}}
+        </button>
+      </view>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="card mint asset-art">
+      <view class="house"></view>
+      <view class="card-title">{{game.phase==='ASSET_OFFER'?tile.name+' ·无人持有':'为下一步，留一份保障'}}</view>
+    </view>
+    <view class="section-title">{{game.phase==='ASSET_OFFER'?'让一处资产，为生活加点底气':'花一点现金，补上保障'}}</view>
+    <view class="body story" wx:if="{{game.phase==='ASSET_OFFER'}}">
+      购入 ¥3,000 · 残值 ¥1,500
+      <view>每次经过起点，固定收益 +¥400</view>
+      <view>本局共可持有 4 处，没有强制购买。</view>
+    </view>
+    <view class="body story" wx:else>
+      现金 −¥200 · 保障 +10
+      <view>这是游戏数值，最多提升至 100。</view>
+    </view>
+    <view class="card">
+      <view class="card-title">{{game.phase==='ASSET_OFFER'?'购买后':'由你决定'}}</view>
+      <view class="body" wx:if="{{game.phase==='ASSET_OFFER' && resources.cash>=3000}}">
+        现金 ¥{{cash}} → ¥{{resources.cash-3000}}
+        <view>基础收益不受停留格影响。</view>
+      </view>
+      <view class="body" wx:elif="{{game.phase==='ASSET_OFFER'}}">
+        当前还差 ¥{{3000-resources.cash}}，可以暂不购买。
+      </view>
+      <view class="body" wx:else>也可以选择保留现金，继续前进。</view>
+    </view>
+    <view class="footer" wx:if="{{game.phase==='ASSET_OFFER'}}">
+      <button class="primary" disabled="{{resources.cash<3000}}" bindtap="buy">
+        {{resources.cash<3000?'现金不足 ¥3,000':'购入'+tile.name+' · ¥3,000'}}
+      </button>
+      <view class="links">
+        <button class="link" bindtap="skip">暂不购买，结束回合</button>
+      </view>
+    </view>
+    <view class="footer" wx:else>
+      <button class="primary" disabled="{{resources.cash<200}}" bindtap="protect">
+        补充保障 · ¥200
+      </button>
+      <view class="links">
+        <button class="link" bindtap="skipProtect">保留现金，继续</button>
+      </view>
+    </view>
+  </block>
+</view>

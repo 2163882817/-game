@@ -1,0 +1,44 @@
+<view class="page">
+  <app-header title="人生回顾" />
+  <view class="subtitle">已完成 24 回合 · 四个阶段</view>
+  <view class="title">{{game.ending.title}}</view>
+  <view class="card mint">
+    <view class="card-title">你的生活账本</view>
+    <view class="body">
+      现金 ¥{{cash}} · 资产残值 ¥{{residual}}
+      <view>
+        精力 {{resources.energy}} · 健康 {{resources.health}} · 保障 {{resources.protection}}
+      </view>
+      <view>累计资产收益 ¥{{game.totalIncome}} · 援助 {{game.aidUsed?1:0}} 次</view>
+    </view>
+  </view>
+  <view class="section-title">三个改变方向的决定</view>
+  <view class="body" wx:for="{{keyChoices}}" wx:key="index">
+    第 {{item.round}} 回合 · {{item.title}}
+  </view>
+  <view class="card">
+    <view class="card-title">每一种生活，都值得回望</view>
+    <view class="body">
+      {{game.ending.text}}
+      <view>没有人生总分，也没有统一胜利标准。</view>
+    </view>
+  </view>
+  <view class="footer">
+    <button class="primary" bindtap="replay">再来一局</button>
+    <view class="links">
+      <button class="link" data-page="history" bindtap="nav">
+        查看完整经历
+      </button>
+      <button class="link" bindtap="share">分享人生卡片</button>
+    </view>
+  </view>
+  <view wx:if="{{shareOpen}}" class="card mint">
+    <view class="card-title">把日子，玩出新可能</view>
+    <view class="body">
+      {{game.ending.title}}
+      <view>虚构角色 · 24 回合 · 四段生活</view>
+    </view>
+    <button class="link" open-type="share">发送给微信好友</button>
+    <view class="note">取消分享不会改变任何进度。</view>
+  </view>
+</view>

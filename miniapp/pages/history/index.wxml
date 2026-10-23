@@ -1,0 +1,59 @@
+<view class="page">
+  <app-header title="人生档案" />
+  <view class="subtitle">走过的路，都是自己的经历</view>
+  <view class="pills">
+    <button class="pill {{tab==='history'?'active':''}}" data-tab="history" bindtap="tab">
+      历史人生
+    </button>
+    <button class="pill {{tab==='achievements'?'active':''}}" data-tab="achievements" bindtap="tab">
+      探索成就
+    </button>
+  </view>
+  <block wx:if="{{tab==='history'}}">
+    <block wx:if="{{selected}}">
+      <button class="link" bindtap="close">返回历史列表</button>
+      <view class="card mint">
+        <view class="card-title">{{selected.ending.title}}</view>
+        <view class="body">{{selected.ending.text}}</view>
+      </view>
+      <view class="timeline" wx:for="{{selected.history}}" wx:key="index">
+        <view class="small body">第 {{item.round}} 回合{{item.main?' · 阶段主线':''}}</view>
+        <view class="section-title">{{item.title}}</view>
+        <view class="body">{{item.text}}</view>
+      </view>
+    </block>
+    <block wx:else>
+      <button
+        class="card list-button"
+        wx:for="{{histories}}"
+        wx:key="gameId"
+        data-id="{{item.gameId}}"
+        bindtap="detail"
+      >
+        <view class="card-title">{{item.ending.title}}</view>
+        <view class="body">
+          {{item.date}} · 24 回合 · 现金 ¥{{item.resources.cash}}
+          <view>查看完整经历 →</view>
+        </view>
+      </button>
+      <view class="empty" wx:if="{{!histories.length}}">
+        <view class="card-title">你的故事，正在路上</view>
+        <view class="body">
+          完成一局后，人生回顾会保存在这里。
+          <view>重新开局不会清除已完成的经历。</view>
+        </view>
+        <button class="link" data-page="home" bindtap="nav">回到首页</button>
+      </view>
+    </block>
+  </block>
+  <view wx:else class="badge-grid">
+    <view class="badge {{item.unlocked?'':'locked'}}" wx:for="{{badges}}" wx:key="id">
+      <view class="badge-name">{{item.name}}</view>
+      <text class="badge-label">{{item.description}}</text>
+      <text class="tag">{{item.unlocked?'已点亮':'未解锁'}}</text>
+    </view>
+  </view>
+  <view class="links">
+    <button class="link" data-page="feedback" bindtap="nav">问题反馈</button>
+  </view>
+</view>

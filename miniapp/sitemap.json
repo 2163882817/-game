@@ -1,0 +1,4 @@
+{
+  "desc": "游戏页面不参与搜索索引",
+  "rules": [{ "action": "disallow", "page": "*" }]
+}
