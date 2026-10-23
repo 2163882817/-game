@@ -1,5 +1,6 @@
 const resources = new Set(["cash", "energy", "health", "protection"]);
 const hasText = (value) => typeof value === "string" && value.trim().length > 0;
+const { validatePreconditions } = require("../miniapp/engine/conditions");
 
 // 基础结构、阶段与机会格保底检查，不替代全状态可达性、来源审核和版本兼容验收。
 function validateContent(content, { release = false } = {}) {
@@ -76,6 +77,10 @@ function validateContent(content, { release = false } = {}) {
   allEvents.forEach((event, i) => {
     if (!event || typeof event !== "object") return;
     const label = `事件 ${event.id || i}`;
+    for (const error of validatePreconditions(event.preconditions)) errors.push(`${label}：${error}`);
+    if ((mains.includes(event) || fallbackEvents.includes(event)) && event.preconditions &&
+        Object.keys(event.preconditions).length)
+      errors.push(`${label} 主线或保底不允许设置触发门槛`);
     if (!hasText(event.title)) errors.push(`${label} 缺少标题`);
     if (!hasText(event.context)) errors.push(`${label} 缺少背景`);
     if (!Number.isInteger(event.stage) || event.stage < 1 || event.stage > stages.length)

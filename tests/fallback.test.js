@@ -40,6 +40,7 @@ test("保底事件随掷骰承诺，快照恢复后可读取和结算且不会�
   vm.runInNewContext(fs.readFileSync(path.join(__dirname, "../miniapp/engine/game.js"), "utf8"), {
     module,
     require(id) {
+      if (id === "./conditions") return require("../miniapp/engine/conditions");
       assert.equal(id, "../content/index");
       return c;
     },

@@ -1,4 +1,5 @@
 const C = require("../content/index");
+const { matchesPreconditions } = require("./conditions");
 const clone = (value) => JSON.parse(JSON.stringify(value));
 const income = (level) => [0, 400, 650, 950][level];
 const upgradeCost = (level) => [0, 1200, 1800][level] || 0;
@@ -78,13 +79,15 @@ function eligible(g, o) {
 }
 function eventCandidates(g, content = C) {
   const pool = content.events.filter((e) =>
-    e.stage === g.stage && e.options.some((option) => eligible(g, option)),
+    e.stage === g.stage && matchesPreconditions(g, e.preconditions) &&
+    e.options.some((option) => eligible(g, option)),
   );
   const unseen = pool.filter((e) => !g.history.some((h) => h.eventId === e.id));
   if (pool.length) return unseen.length ? unseen : pool;
   const id = content.fallbackMap[g.stage] && content.fallbackMap[g.stage].event;
   const fallback = content.fallbackEvents.find((e) => e.id === id && e.stage === g.stage);
-  if (!fallback || !fallback.options.some((option) => eligible(g, option)))
+  if (!fallback || !matchesPreconditions(g, fallback.preconditions) ||
+      !fallback.options.some((option) => eligible(g, option)))
     throw new Error("当前阶段缺少可执行的保底事件，请保留存档并联系开发者。");
   return [fallback];
 }
