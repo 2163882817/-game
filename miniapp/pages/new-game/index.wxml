@@ -10,7 +10,12 @@
       <view>使用虚构角色，无需填写真实个人资料。</view>
     </view>
   </view>
-  <view class="card">
+  <view class="links">
+    <button class="link" bindtap="toggleGuide" aria-expanded="{{showGuide}}">
+      {{showGuide?'收起玩法说明':'查看玩法说明'}}
+    </button>
+  </view>
+  <view class="card" wx:if="{{showGuide}}">
     <view class="card-title">三步上手</view>
     <view class="body">
       01 掷骰前进，落格遇见生活事件。
@@ -18,7 +23,7 @@
       <view>03 每 6 回合回顾，24 回合完成这局。</view>
     </view>
   </view>
-  <view class="card">
+  <view class="card" wx:if="{{showGuide}}">
     <view class="card-title">你决定怎样过</view>
     <view class="body">
       没有排行榜和唯一标准答案。

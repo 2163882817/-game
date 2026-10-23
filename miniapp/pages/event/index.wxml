@@ -19,7 +19,7 @@
       </view>
       <view class="body">{{item.cost}}</view>
       <view wx:if="{{item.disabled}}" class="small warning">
-        当前资源不足，请选择其他方案
+        {{item.disabledReason}}，请选择其他方案
       </view>
     </button>
     <view class="bottom-space"></view>

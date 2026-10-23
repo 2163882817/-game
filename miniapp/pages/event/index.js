@@ -9,11 +9,15 @@ Page({
       const event = E.event(g);
       this.setData({
         event,
-        options: event.options.map((o, i) => ({
-          ...o,
-          letter: String.fromCharCode(65 + i),
-          disabled: !E.eligible(g, o),
-        })),
+        options: event.options.map((o, i) => {
+          const availability = E.optionAvailability(g, o);
+          return {
+            ...o,
+            letter: String.fromCharCode(65 + i),
+            disabled: !availability.allowed,
+            disabledReason: availability.reason,
+          };
+        }),
       });
     }
   },

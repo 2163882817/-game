@@ -72,10 +72,30 @@ function event(g) {
   }
   return e;
 }
+function optionAvailability(g, o) {
+  const labels = { cash: "现金", energy: "精力", health: "健康", protection: "保障" };
+  if (!o || !o.effects || typeof o.effects !== "object" || Array.isArray(o.effects) ||
+      Object.entries(o.effects).some(([key, delta]) =>
+        !Object.prototype.hasOwnProperty.call(labels, key) ||
+        !Number.isFinite(delta) || !Number.isFinite(g.resources[key]),
+      )) return { allowed: false, shortages: [], reason: "选项配置不可用" };
+  const shortages = Object.entries(o.effects)
+    .filter(([key, delta]) => delta < 0 && g.resources[key] < -delta)
+    .map(([key, delta]) => ({
+      key,
+      required: -delta,
+      current: g.resources[key],
+      missing: -delta - g.resources[key],
+    }));
+  const reason = shortages.map(({ key, missing }) =>
+    key === "cash"
+      ? `现金还差 ¥${missing.toLocaleString("en-US")}`
+      : `${labels[key]}还差 ${missing} 点`,
+  ).join("；");
+  return { allowed: shortages.length === 0, shortages, reason };
+}
 function eligible(g, o) {
-  return Object.keys(o.effects).every(
-    (key) => o.effects[key] >= 0 || g.resources[key] + o.effects[key] >= 0,
-  );
+  return optionAvailability(g, o).allowed;
 }
 function eventCandidates(g, content = C) {
   const pool = content.events.filter((e) =>
@@ -201,7 +221,9 @@ function command(snapshot, type, payload = {}) {
       if (g.phase !== "CHOOSING") return snapshot;
       const e = event(g),
         o = e.options.find((v) => v.id === payload.id);
-      if (!o || !eligible(g, o)) throw new Error("资源不足，请选择其他方案。");
+      if (!o) throw new Error("该选项已不可用，请重新选择。");
+      const availability = optionAvailability(g, o);
+      if (!availability.allowed) throw new Error(availability.reason + "，请选择其他方案。");
       if (o.flag && !g.flags.includes(o.flag)) g.flags.push(o.flag);
       finish(
         g,
@@ -377,6 +399,7 @@ module.exports = {
   command,
   event,
   eligible,
+  optionAvailability,
   income,
   upgradeCost,
   salvage,

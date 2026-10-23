@@ -26,6 +26,16 @@ App({
       if (next.phase === "ENDING") this.storage.archive(next);
       this.recordAchievements(next);
       this.pending = null;
+      // 新局真正保存成功才记录引导完成；失败重试成功也走同一路径。
+      if (replace) {
+        try {
+          const completed = this.storage.list("onboarding");
+          if (!completed.includes("v1"))
+            this.storage.write("onboarding", completed.concat("v1"));
+        } catch (_) {
+          wx.showToast({ title: "引导记录未保存，下次仍会显示说明", icon: "none" });
+        }
+      }
       return next;
     } catch (error) {
       this.pending = { snapshot: next, replace };
